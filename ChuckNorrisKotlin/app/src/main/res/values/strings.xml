@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Chuck Norris Jokes</string>
+    <string name="loading">Loading...</string>
+    <string name="error">Error</string>
+    <string name="name_not_found">Name_not_found</string>
+    <string name="success">Success</string>
+    <string name="jokes">Jokes</string>
+    <string name="web">Web</string>
+    <string name="pager">Pager</string>
+    <string name="activity">Activity</string>
+
+    <string name="api_url">http://www.icndb.com/api</string>
+    <string name="web_title">Api info</string>
+    <string name="reload">Reload</string>
+    <string name="count">Count</string>
+</resources>
