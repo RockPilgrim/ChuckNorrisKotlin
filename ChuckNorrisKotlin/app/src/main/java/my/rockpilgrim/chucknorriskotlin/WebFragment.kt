@@ -1,6 +1,8 @@
 package my.rockpilgrim.chucknorriskotlin
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.system.Os.remove
 import android.util.Log
@@ -27,14 +29,8 @@ class WebFragment : Fragment() {
 
     private lateinit var webViewModel: WebViewModel
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Save after destroy activity when it flips
-//        retainInstance = true
         webViewModel = ViewModelProvider(this).get(WebViewModel::class.java)
     }
 
@@ -48,10 +44,20 @@ class WebFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun setupUI(binding: WebFragmentBinding) {
         val webView = binding.webView
         val refreshView = binding.refreshView
+        refreshView.isRefreshing = true
+        // Setup WebView
         webView.webViewClient = WebViewClient()
+        webView.setBackgroundColor(Color.TRANSPARENT)
+        webView.settings.apply {
+            javaScriptEnabled = true
+            useWideViewPort = true
+            loadWithOverviewMode = true
+            textZoom = 200
+        }
         webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 when {
@@ -62,8 +68,6 @@ class WebFragment : Fragment() {
                 }
             }
         }
-        webView.settings.useWideViewPort = true
-        webView.settings.loadWithOverviewMode = true
         subscribeUrl(webView)
 
         refreshView.setOnRefreshListener {
@@ -86,18 +90,24 @@ class WebFragment : Fragment() {
             Log.d(TAG,"onBackPressedAttach()")
             if (webView.canGoBack()) {
                 webView.goBack()
-                Log.d(TAG, "onCreate() onBackPressed() web")
+                Log.d(TAG, "onBackPressed() web")
             } else {
                 remove()
                 requireActivity().onBackPressed()
-                Log.d(TAG, "onCreate() onBackPressed() remove")
+                Log.d(TAG, "onBackPressed() remove")
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
+        webView.onResume()
         onBackPressedAttach()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        webView.onPause()
     }
 
     override fun onStop() {

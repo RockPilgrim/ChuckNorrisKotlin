@@ -41,12 +41,12 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.jokeTab -> {
                     fragmentsViewPager.currentItem = JokePagerAdapter.JOKES_FRAGMENT
-                    viewPager.isUserInputEnabled = true
+//                    viewPager.isUserInputEnabled = true
                     true
                 }
                 R.id.webTab -> {
                     fragmentsViewPager.currentItem = JokePagerAdapter.WEB_FRAGMENT
-                    viewPager.isUserInputEnabled = false
+//                    viewPager.isUserInputEnabled = false
                     true
                 }
                 else -> false

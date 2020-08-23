@@ -77,14 +77,14 @@ class JokeFragment : Fragment() {
     private fun reload() {
         val count: Int? = countEditText.text.toString().toIntOrNull()
         Log.i(TAG, "Count: ${count ?: 0}")
-        mainViewModel.loadJokes(count ?: -1)
+        mainViewModel.loadJokes(requireContext(), count ?: -1)
         closeKeyBoard()
         countEditText.setText("")
     }
 
     private fun initRefresh() {
         refreshView.setOnRefreshListener {
-            mainViewModel.loadJokes()
+            mainViewModel.reloadJokes(requireContext())
         }
     }
 
