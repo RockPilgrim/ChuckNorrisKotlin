@@ -19,3 +19,5 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep public class my.rockpilgrim.chucknorriskotlin.data.pogo.Joke {*;}
+-keep public class my.rockpilgrim.chucknorriskotlin.data.pogo.JokeList {*;}
